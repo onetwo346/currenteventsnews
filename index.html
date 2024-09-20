@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Theme Video</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden; /* Prevent horizontal scrolling */
+        overflow-y: auto; /* Allow vertical scrolling */
+      }
+
+      html,
+      body {
+        height: 100%;
+        overflow: hidden; /* Hide scrollbars */
+      }
+
+      video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw; /* Ensure the video fills the viewport width */
+        height: 100vh; /* Ensure the video fills the viewport height */
+        object-fit: cover; /* Maintain aspect ratio and cover the screen */
+        z-index: -1; /* Send the video to the background */
+      }
+
+      .news {
+        position: fixed; /* Fixed to keep it at the bottom */
+        bottom: 10px;
+        left: 10px;
+        padding: 20px;
+        background: rgba(
+          0,
+          0,
+          0,
+          0.7
+        ); /* Semi-transparent background for readability */
+        color: white;
+        border-radius: 8px;
+        z-index: 1; /* Ensure the news section is above the video */
+        max-width: 300px; /* Limit the width for better readability */
+        max-height: 300px; /* Limit height to enable scrolling */
+        overflow-y: auto; /* Enable vertical scrolling */
+      }
+
+      .text-overlay {
+        position: absolute;
+        color: white;
+        font-size: 24px; /* Smaller font size */
+        font-weight: bold;
+        background: rgba(
+          0,
+          0,
+          0,
+          0.5
+        ); /* Semi-transparent background for readability */
+        padding: 8px; /* Adjust padding for smaller font size */
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        z-index: 1;
+        transition: background 0.3s; /* Smooth background transition */
+      }
+
+      /* Left Side Overlays */
+      .text-overlay.blog {
+        top: 12%; /* Shifted down slightly */
+        left: 64%;
+        transform: translateX(-50%);
+      }
+
+      .text-overlay.games {
+        top: 34%; /* Shifted down slightly */
+        left: 64%;
+        transform: translateX(-50%);
+      }
+
+      .text-overlay.calendar {
+        top: 59%; /* Shifted down slightly */
+        left: 64%;
+        transform: translateX(-50%);
+      }
+
+      .text-overlay.chatbot {
+        top: 82%; /* Shifted down slightly */
+        left: 64%;
+        transform: translateX(-50%);
+      }
+
+      /* Right Side Overlays */
+      .text-overlay.ideas {
+        top: 34%;
+        left: 87%; /* Positioned slightly to the right */
+        transform: translateX(-50%);
+      }
+
+      .text-overlay.search {
+        top: 59%; /* Shifted down slightly */
+        left: 87%; /* Positioned slightly to the right */
+        transform: translateX(-50%);
+      }
+
+      .text-overlay.resources {
+        top: 82%; /* Shifted down slightly */
+        left: 87%; /* Positioned slightly to the right */
+        transform: translateX(-50%);
+      }
+
+      /* Additional News Overlay */
+      .text-overlay.news-new {
+        top: 10.25%; /* Moved up slightly */
+        left: 87%; /* Positioned slightly to the right */
+        transform: translateX(-50%);
+      }
+
+      /* Ensure consistent styling across devices */
+      @media (max-width: 600px) {
+        .text-overlay {
+          font-size: 20px; /* Adjust font size for smaller screens */
+        }
+
+        .news {
+          max-width: 250px; /* Adjust news section width for smaller screens */
+          max-height: 250px; /* Adjust news section height for smaller screens */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Background Video -->
+    <video autoplay muted loop id="backgroundVideo">
+      <source src="currentevents.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+
+    <!-- News Section -->
+    <div class="news" id="newsSection">
+      <h2>Latest News</h2>
+      <div id="news-content">
+        <p>
+          Breaking News: Major event happening now. Stay tuned for more updates.
+        </p>
+        <p>
+          Weather Update: Expect rain throughout the day with temperatures
+          ranging from 50-60°F.
+        </p>
+        <p>Sports: Local team wins the championship in a thrilling match!</p>
+        <p>Tech: New gadget released today with exciting features.</p>
+        <p>Finance: Stock market hits record highs amidst economic growth.</p>
+        <p>Entertainment: New blockbuster movie premieres this weekend.</p>
+        <p>Health: Local clinic offers free health screenings this week.</p>
+        <p>
+          Travel: New travel restrictions announced for international
+          destinations.
+        </p>
+        <p>
+          Education: Local school district introduces new curriculum for
+          students.
+        </p>
+        <p>Science: Research breakthrough in renewable energy technologies.</p>
+        <p>Sky: The limit.</p>
+        <p>
+          RICH&BLACK NEWS: ACJ will be dropping fire bangers in the coming days.
+        </p>
+      </div>
+    </div>
+
+    <!-- Text Overlays -->
+    <div class="text-overlay blog" onclick="handleOverlayClick('blog')">
+      BLOG
+    </div>
+    <div class="text-overlay games" onclick="handleOverlayClick('games')">
+      GAMES
+    </div>
+    <div class="text-overlay calendar" onclick="handleOverlayClick('calendar')">
+      CALENDAR
+    </div>
+    <div class="text-overlay chatbot" onclick="handleOverlayClick('chatbot')">
+      CHATBOT
+    </div>
+    <div class="text-overlay news-new" onclick="handleOverlayClick('news')">
+      NEWS
+    </div>
+    <div class="text-overlay ideas" onclick="handleOverlayClick('ideas')">
+      IDEAS
+    </div>
+    <div class="text-overlay search" onclick="handleOverlayClick('search')">
+      SEARCH
+    </div>
+    <div
+      class="text-overlay resources"
+      onclick="handleOverlayClick('resources')"
+    >
+      RESOURCES
+    </div>
+
+    <script>
+      function handleOverlayClick(overlayType) {
+        if (overlayType === "games") {
+          playGamesVideo();
+        } else {
+          hideElements();
+          window.open("http://www.example.com", "_blank"); // Adjust URL as needed
+        }
+      }
+
+      function playGamesVideo() {
+        const videoElement = document.getElementById("backgroundVideo");
+        videoElement.src = "games.mp4"; // Change the source to games.mp4
+        videoElement.load(); // Reload the video with the new source
+        videoElement.play(); // Play the video
+        videoElement.style.objectFit = "cover"; // Ensure video fits properly
+        videoElement.style.width = "100vw"; // Ensure the video fills the viewport width
+        videoElement.style.height = "100vh"; // Ensure the video fills the viewport height
+        hideElements(); // Hide the overlays and news section
+        videoElement.muted = false; // Ensure the audio is enabled
+      }
+
+      function hideElements() {
+        const overlays = document.querySelectorAll(".text-overlay");
+        const newsSection = document.getElementById("newsSection");
+        overlays.forEach((overlay) => (overlay.style.display = "none")); // Hide all overlays
+        newsSection.style.display = "none"; // Hide news section
+      }
+    </script>
+  </body>
+</html>
